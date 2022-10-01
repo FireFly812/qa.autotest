@@ -1,4 +1,4 @@
-package gb.springboot.qa.autotest.rest.dto;
+package gb.springboot.qa.autotest.lesson2.rest.dto;
 
 import lombok.*;
 
