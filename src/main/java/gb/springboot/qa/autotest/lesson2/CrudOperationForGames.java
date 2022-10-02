@@ -1,6 +1,6 @@
-package gb.springboot.qa.autotest;
+package gb.springboot.qa.autotest.lesson2;
 
-import gb.springboot.qa.autotest.rest.dto.Game;
+import gb.springboot.qa.autotest.lesson2.rest.dto.Game;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
