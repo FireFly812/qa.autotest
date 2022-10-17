@@ -5,7 +5,7 @@ import gb.springboot.qa.autotest.lesson2.rest.dto.Game;
 public interface GameService {
     void save(Game gameDto);
 
-    void update(Game userDto);
+    void update(Game gameDto);
 
     Game getById(Integer id);
 
