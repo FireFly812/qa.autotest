@@ -4,6 +4,7 @@ import gb.springboot.qa.autotest.lesson4.entity.GameEntity;
 import gb.springboot.qa.autotest.lesson4.repository.GameRepository;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -22,17 +23,20 @@ public class GameRepositoryTest {
 
 
     @Test
+    @DisplayName("Checking the search game by Name and  Genre")
     void getGameByNameAndGenreTest() {
-
+        //Given
         GameEntity gameEntity = new GameEntity();
         gameEntity.setName("Duke Nukem");
         gameEntity.setGenre("shooter");
         gameEntity.setMmo(false);
 
+        //When
         testEntityManager.persistAndFlush(gameEntity);
         Optional<GameEntity> entity = gameRepository.findByNameAndGenre("Duke Nukem","shooter");
         Assertions.assertThat(entity.isPresent()).isTrue();
 
+        //Then
         SoftAssertions.assertSoftly(s -> {
             s.assertThat(entity.get().getName()).isEqualTo("Duke Nukem");
             s.assertThat(entity.get().getGenre()).isEqualTo("shooter");

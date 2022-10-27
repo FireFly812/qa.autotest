@@ -12,17 +12,17 @@ public class GameMapperUnitTest {
 
     @Test
     void convertEntityToDtoTest() {
-        //pre-condition
+       //Given
         GameEntity gameEntity = new GameEntity();
         gameEntity.setName("Duke Nukem");
         gameEntity.setGenre("shooter");
         gameEntity.setMmo(false);
         gameEntity.setId(10);
 
-        //step
+        //When
         Game game = gameMapper.entityToDto(gameEntity);
 
-        //assert
+        //Then
         SoftAssertions.assertSoftly(s -> {
             s.assertThat(game.getId()).isEqualTo(gameEntity.getId());
             s.assertThat(game.getName()).isEqualTo(gameEntity.getName());
@@ -33,16 +33,16 @@ public class GameMapperUnitTest {
 
     @Test
     void convertDtoToEntityTest() {
-        //pre-condition
+        //Given
         Game game = new Game();
         game.setName("Duke Nukem");
         game.setGenre("shooter");
         game.setMmo(false);
 
-        //step
+        //When
         GameEntity gameEntity = gameMapper.dtoToEntity(game);
 
-        //assert
+        //Then
         SoftAssertions.assertSoftly(s -> {
             s.assertThat(gameEntity.getName()).isEqualTo(game.getName());
             s.assertThat(gameEntity.getGenre()).isEqualTo(game.getGenre());

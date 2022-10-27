@@ -6,6 +6,7 @@ import gb.springboot.qa.autotest.lesson7.page.JavaProfessionPage;
 import gb.springboot.qa.autotest.lesson7.page.JavaQaAutomationProfessionPage;
 import gb.springboot.qa.autotest.lesson7.page.MobileApplicationPage;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class GeekBrainsSearchInfoTest {
 
 
     @Test
+    @DisplayName("Course selection Java testing automation")
     public void getJavaQaAutomationProfessionTest() {
 
         mainPage.getMainPage()
@@ -46,6 +48,7 @@ public class GeekBrainsSearchInfoTest {
     }
 
     @Test
+    @DisplayName("Course selection Programmer Java")
     public void getJavaProfessionTest() {
         mainPage.getMainPage()
                 .search("Java")
@@ -57,6 +60,7 @@ public class GeekBrainsSearchInfoTest {
     }
 
     @Test
+    @DisplayName("course selection Mobile applications in Java")
     public void getJavaMobileApplicationTest() {
         mainPage.getMainPage()
                 .search("Java")

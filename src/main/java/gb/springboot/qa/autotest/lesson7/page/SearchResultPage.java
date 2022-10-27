@@ -56,5 +56,4 @@ public class SearchResultPage {
                 .orElseThrow()
                 .click();
     }
-
 }
