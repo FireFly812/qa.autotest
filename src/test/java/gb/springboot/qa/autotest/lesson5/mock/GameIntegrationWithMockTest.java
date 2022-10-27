@@ -6,6 +6,7 @@ import gb.springboot.qa.autotest.lesson4.service.GameService;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
@@ -60,21 +61,20 @@ public class GameIntegrationWithMockTest {
     }
 
     @Test
+    @DisplayName("Checking get Game")
     void getGameTest() throws Exception {
-
+        //Given
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(getRootUrl() + "/game-rest/" + new Random().nextInt(5)))
                 .header(HttpHeaders.CONTENT_TYPE, "application/json")
                 .GET()
                 .build();
 
-        //step 1
+        //When
         HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
-        //intermediate assert after first step
         Assertions.assertThat(response.statusCode()).isEqualTo(SC_OK);
 
-        //assert
+        //Then
         Game userResponse = objectMapper.readValue(response.body(), Game.class);
         SoftAssertions.assertSoftly(s -> {
             s.assertThat(game.getName()).isEqualTo(userResponse.getName());
@@ -84,16 +84,19 @@ public class GameIntegrationWithMockTest {
     }
 
     @Test
+    @DisplayName("Checking update game")
     void updateGameTest() throws Exception {
-
+        //Given
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(getRootUrl() + "/game-rest/" + new Random().nextInt(5)))
                 .header(HttpHeaders.CONTENT_TYPE, "application/json")
                 .DELETE()
                 .build();
 
+        //When
         HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
+        //Then
         Assertions.assertThat(response.statusCode()).isEqualTo(SC_OK);
     }
 }

@@ -6,7 +6,7 @@ import gb.springboot.qa.autotest.lesson5.restassured.petstore.dto.PetStoreUserDt
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ public class PetStoreUserServiceTest {
     private RequestSpecification requestSpecification;
 
     @Test
+    @DisplayName("Checking save and gat user")
     void saveUserAndGetByUserNameTest() {
-
         //pre-condition - create user
         PetStoreUserDto userDto = PetStoreUserDto.builder()
                 .firstName("firstName")
@@ -62,8 +62,8 @@ public class PetStoreUserServiceTest {
     }
 
     @Test
+    @DisplayName("Checking delete user")
     void deleteUserTest() {
-
         //pre-condition - create user
         PetStoreUserDto userDto = PetStoreUserDto.builder()
                 .firstName("firstName")
@@ -104,6 +104,7 @@ public class PetStoreUserServiceTest {
     }
 
     @Test
+    @DisplayName("Checking update user")
     void updateUserTest() {
         PetStoreUserDto userDto = PetStoreUserDto.builder()
                 .firstName("firstName")

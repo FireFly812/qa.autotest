@@ -9,6 +9,7 @@ import gb.springboot.qa.autotest.lesson4.repository.GameRepository;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +64,6 @@ public class GameIntegrationTest {
         GameEntity gameEntity = gameRepository.findAll().stream()
                 .findFirst()
                 .orElseThrow();
-
-        //assert
         assertEqGameEntity(gameEntity, game);
     }
 
@@ -78,26 +77,26 @@ public class GameIntegrationTest {
     }
 
     @Test
+    @DisplayName("Checking save game")
     void saveGameTest() throws Exception {
-        //pre-condition
-
+        //Given
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(getRootUrl() + "/game-rest"))
                 .header(HttpHeaders.CONTENT_TYPE, "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(game)))
                 .build();
 
-        //step 1
+        //When
         request(httpRequest);
 
-        //step 2
+        //Then
         assertGameEntity();
     }
 
     @Test
+    @DisplayName("Checking get gane")
     void getGameTest() throws Exception {
-        //pre-condition
-
+        //Given
         GameEntity gameEntity = gameRepository.saveAndFlush(gameMapper.dtoToEntity(game));
 
         HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -106,19 +105,19 @@ public class GameIntegrationTest {
                 .GET()
                 .build();
 
-        //step 1
+        //When
         HttpResponse<String> response = request(httpRequest);
 
-        //assert
+        //Then
         Game responseGame = objectMapper.readValue(response.body(), Game.class);
         assertEqGameEntity(gameEntity, responseGame);
     }
 
     @Test
-    void updateUserTest() throws Exception {
-
+    @DisplayName("Checking update gane")
+    void updateGameTest() throws Exception {
+        //Given
         gameRepository.saveAndFlush(gameMapper.dtoToEntity(game));
-
         game.setMmo(true);
 
         HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -127,14 +126,17 @@ public class GameIntegrationTest {
                 .PUT(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(game)))
                 .build();
 
-        //step 1
+        //When
         request(httpRequest);
 
+        //Then
         assertGameEntity();
     }
 
     @Test
-    void deleteUserTest() throws Exception {
+    @DisplayName("Checking delete game")
+    void deleteGameTest() throws Exception {
+        //Given
         gameRepository.saveAndFlush(gameMapper.dtoToEntity(game));
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(getRootUrl() + "/game-rest/" + game.getId()))
@@ -142,7 +144,10 @@ public class GameIntegrationTest {
                 .DELETE()
                 .build();
 
+        //When
         request(httpRequest);
+
+        //Then
         Assertions.assertThat(gameRepository.findAll().stream()
                 .findFirst().isEmpty()).isTrue();
     }
